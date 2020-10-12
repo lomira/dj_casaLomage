@@ -27,7 +27,7 @@ Gestionnaire de recettes et de frigo
 * Temps de cuisson
 * Materiel necessaire
 * Produits necessaires
-* Commentaire laissés la fois dernière
+* Commentaire laissé la fois dernière
 * Instructions
 
 ## Produits
@@ -46,4 +46,7 @@ Gestionnaire de recettes et de frigo
 - [ ] Implémenter la modification de recettes ![](https://img.shields.io/badge/Difficult%C3%A9-Facile-green)
 - [ ] Implémenter le versionning ![](https://img.shields.io/badge/Difficult%C3%A9-Difficile-red)
 - [ ] Implémenter les utilisateurs et les restrictions ![](https://img.shields.io/badge/Difficult%C3%A9-Moyen-yellow)
+- [ ] Implémenter les photos des recettes ![](https://img.shields.io/badge/Difficult%C3%A9-Facile-green)
+- [ ] Ajouter les commentaires et la possibilité de choisir entre uniquement sur cette version ou sur toutes les versions ![](https://img.shields.io/badge/Difficult%C3%A9-Facile-green)
+- [ ] Ajouter les fonctions prévues pour les produits (c.f. plus haut) ![](https://img.shields.io/badge/Difficult%C3%A9-Facile-green)
 - [ ] Développer l'app Frigo ![](https://img.shields.io/badge/Difficult%C3%A9-Moyen-yellow)
