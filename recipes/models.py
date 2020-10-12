@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+from autoslug import AutoSlugField
 
 class Ingredient(models.Model):
     ingredient = models.CharField(max_length=25)
@@ -19,6 +20,7 @@ class Material(models.Model):
 
 class Recipe(models.Model):
     name = models.CharField(max_length=100)
+    slug= AutoSlugField(unique=True, populate_from='name')
     pic = models.ImageField(default="default.jpg", upload_to="recipe_pics")
     prep_time = models.IntegerField()
     material = models.ManyToManyField(Material, related_name="recipe")
@@ -30,6 +32,8 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.name
+
+
 
 
 class QntIngredient(models.Model):

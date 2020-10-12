@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "autoslug",
     "recipes.apps.RecipesConfig",
     'django.contrib.admin',
     'django.contrib.auth',
