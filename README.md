@@ -37,8 +37,13 @@ Gestionnaire de recettes et de frigo
 * Où trouver le produit
 
 # Infos sur l'app
-* Développé en Python ?
-* Framework Django ?
-* Ajouts de JS ?
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
-# :) :)
+
+# Todo
+- [x] Implémenter les vues simples pour la liste des recettes et le détail d'une recette
+- [x] Passer l'url mapping en slug
+- [ ] Implémenter la modification de recettes ![](https://img.shields.io/badge/Difficult%C3%A9-Facile-green)
+- [ ] Implémenter le versionning ![](https://img.shields.io/badge/Difficult%C3%A9-Difficile-red)
+- [ ] Implémenter les utilisateurs et les restrictions ![](https://img.shields.io/badge/Difficult%C3%A9-Moyen-yellow)
+- [ ] Développer l'app Frigo ![](https://img.shields.io/badge/Difficult%C3%A9-Moyen-yellow)
