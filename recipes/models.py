@@ -38,7 +38,7 @@ class QntIngredient(models.Model):
     quantity = models.IntegerField()
 
     def __str__(self):
-        return f"{self.quantiyty} x {self.material}"
+        return f"{self.recipe.name} : {self.quantity} x {self.ingredient}"
 
 class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>{{ recipe.name }}</h1>
+    <ul class="list-group">
+        <li class="list-group-item">Created on: {{recipe.created_on|date:"l j F, Y"}}</li>
+        <li class="list-group-item">Last modified on: {{recipe.last_modifed_on|date:"l j F, Y"}}</li>
+        <li class="list-group-item">Author: {{ recipe.author }}</li>
+        <li class="list-group-item">Preparation time: {{ recipe.prep_time }} minute{{recipe.prep_time|pluralize}}</li>
+        <li class="list-group-item">Material: 
+            <ul class="list-group">
+                {% for mat in recipe.material.all %}
+                    <li class="list-group-item">{{mat.material}}</li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li class="list-group-item">Ingredient: 
+            <ul class="list-group">
+                {% for ingr in ingredients.all %}
+                    <li class="list-group-item">{{ingr.ingredient}} x {{ingr.quantity}}</li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li class="list-group-item">Number of servings: {{ recipe.nb_servings }}</li>
+        <li class="list-group-item">Instructions: {{recipe.instruction}}</li>
+    </ul>
+{% endblock content %}
