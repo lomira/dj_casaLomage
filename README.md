@@ -49,4 +49,6 @@ Gestionnaire de recettes et de frigo
 - [ ] Implémenter les photos des recettes ![](https://img.shields.io/badge/Difficult%C3%A9-Facile-green)
 - [ ] Ajouter les commentaires et la possibilité de choisir entre uniquement sur cette version ou sur toutes les versions ![](https://img.shields.io/badge/Difficult%C3%A9-Facile-green)
 - [ ] Ajouter les fonctions prévues pour les produits (c.f. plus haut) ![](https://img.shields.io/badge/Difficult%C3%A9-Facile-green)
+- [ ] Ajouter le calcul des prix des recettes ![](https://img.shields.io/badge/Difficult%C3%A9-Difficile-red)
+- [ ] Permettre le scaling des recettes ![](https://img.shields.io/badge/Difficult%C3%A9-Facile-green)
 - [ ] Développer l'app Frigo ![](https://img.shields.io/badge/Difficult%C3%A9-Moyen-yellow)
