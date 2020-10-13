@@ -1,4 +1,4 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="content-section">
@@ -14,10 +14,10 @@
                 S'enregistrer
             </button>
         </div>
-        <div class="border-top pt-3">
-            <small class="text-muted">Déjà un compte ?</small>
-            <a class="ml-2" href="#">Se connecter</a>
-        </div>
     </form>
+    <div class="border-top pt-3">
+        <small class="text-muted">Déjà un compte ?</small>
+        <a class="ml-2" href="{% url 'login' %}">Se connecter</a>
+    </div>
 </div>
 {% endblock content %}
