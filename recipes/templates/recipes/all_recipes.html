@@ -4,4 +4,22 @@
     {% for recipe in recipe_list %}
         <h2><a href="{% url 'recipe-detail' recipe.slug%}">{{ recipe.name }}</a></h2>
     {% endfor %}
+
+    {% if is_paginated %}
+        {% if page_obj.has_previous %}
+            <a class="btn btn-outline-info mb-4" href="?page=1"><<</a> 
+            <a class="btn btn-outline-info mb-4" href="?page={{page.obj.previous_page_number}}"><</a> 
+        {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <a class="btn btn-info mb-4" href="?page={{num}}">{{num}}</a> 
+            {% elif num > page_obj.number|add:"-2" and num < page_obj.number|add:"2"%}
+                <a class="btn btn-outline-info mb-4" href="?page={{num}}">{{num}}</a> 
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <a class="btn btn-outline-info mb-4" href="?page={{page.obj.next_page_number}}">></a> 
+            <a class="btn btn-outline-info mb-4" href="?page={{page.obj.paginator.num_pages}}">>></a> 
+        {% endif %}
+    {% endif %}
 {% endblock content %}

@@ -8,7 +8,8 @@ class RecipesList(ListView):
     model = Recipe
     context_object_name = "recipe_list"
     template_name = "recipes/all_recipes.html"
-    ordering = "-created_on"
+    ordering = ["-created_on"]
+    paginate_by = 1
 
 
 class RecipeDetail(DetailView):
