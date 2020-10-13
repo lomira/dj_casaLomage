@@ -44,7 +44,7 @@ Gestionnaire de recettes et de frigo
 - [x] Implémenter les vues simples pour la liste des recettes et le détail d'une recette
 - [x] Passer l'url mapping en slug
 - [ ] Implémenter le versionning ![](https://img.shields.io/badge/Difficult%C3%A9-Difficile-red)
-- [ ] Implémenter les utilisateurs et les restrictions ![](https://img.shields.io/badge/Difficult%C3%A9-Moyen-yellow)
+- [x] Implémenter les utilisateurs et les restrictions ![](https://img.shields.io/badge/Difficult%C3%A9-Moyen-yellow)
 - [ ] Implémenter la modification de recettes ![](https://img.shields.io/badge/Difficult%C3%A9-Facile-green)
 - [ ] Implémenter les photos des recettes ![](https://img.shields.io/badge/Difficult%C3%A9-Facile-green)
 - [ ] Ajouter les commentaires et la possibilité de choisir entre uniquement sur cette version ou sur toutes les versions ![](https://img.shields.io/badge/Difficult%C3%A9-Facile-green)

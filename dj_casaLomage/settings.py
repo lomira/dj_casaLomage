@@ -38,6 +38,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "autoslug",
     "crispy_forms",
+    "extra_views",
     "recipes.apps.RecipesConfig",
     "users.apps.UsersConfig",
     'django.contrib.admin',

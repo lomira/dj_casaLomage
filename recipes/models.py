@@ -27,8 +27,7 @@ class RecipeMaster(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return reverse("recipe-detail", kwargs={"slug": self.slug})
+    
 
 
 class Recipe(models.Model):
@@ -45,7 +44,9 @@ class Recipe(models.Model):
 
     def __str__(self):
         return f"{self.recipe_master.name} version {self.last_modifed_on}"
-
+    
+    def get_absolute_url(self):
+        return reverse("recipe-detail", kwargs={"slugmaster": self.recipe_master.slug, "pk":self.pk})
 
 
 class QntIngredient(models.Model):

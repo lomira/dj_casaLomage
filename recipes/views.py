@@ -7,6 +7,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+
 from recipes.models import RecipeMaster, Recipe, QntIngredient
 
 
@@ -18,11 +19,12 @@ class RecipesList(ListView):
     paginate_by = 1
 
     def get_queryset(self):
+        # Keeping the lastest recipes for each master recipe (with a recipe)
         allmaster = RecipeMaster.objects.all()
-        return [
-            Recipe.objects.filter(recipe_master=x).latest("last_modifed_on")
-            for x in allmaster
-        ]
+        subset = [Recipe.objects.filter(recipe_master=x) for x in allmaster]
+        subset = filter(None,subset)
+        lastest = [x.latest("last_modifed_on") for x in subset]
+        return lastest
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -51,24 +53,9 @@ class RecipeDetail(DetailView):
         ).order_by("last_modifed_on")
         return context
 
-
-class RecipeCreate(LoginRequiredMixin, CreateView):
-    model = Recipe
-    fields = ["name", "pic", "prep_time", "material", "nb_servings", "instruction"]
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["page_title"] = "Créer une recette"
-        return context
-
-
 class RecipeUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Recipe
-    fields = ["name", "pic", "prep_time", "material", "nb_servings", "instruction"]
+    fields = ["pic", "prep_time", "material", "nb_servings", "instruction"]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -76,9 +63,8 @@ class RecipeUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         recipe = self.get_object()
-        if self.request.user == recipe.author:
-            return True
-        return False
+        return self.request.user == recipe.recipe_master.author
+        
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -92,11 +78,25 @@ class RecipeDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         recipe = self.get_object()
-        if self.request.user == recipe.author:
-            return True
-        return False
+        return self.request.user == recipe.recipe_master.author
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["page_title"] = "Supprimer une recette"
         return context
+
+
+class RecipeCreate(LoginRequiredMixin, CreateView):
+    model = Recipe
+    fields = ["pic", "prep_time", "material", "nb_servings", "instruction"]
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = "Créer une recette"
+        return context
+

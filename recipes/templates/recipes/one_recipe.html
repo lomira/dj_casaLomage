@@ -3,8 +3,8 @@
     <h1>{{ recipe.recipe_master.name }}
     <small class="small text-muted">Créée {{recipe.created_on|date:"l j F, Y"}}, par {{ recipe.recipe_master.author }}</small></h1>
     {% if recipe.recipe_master.author == user %}
-        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'recipe-update' recipe.recipe_master.slug %}">Mettre à jour</a>
-        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'recipe-delete' recipe.recipe_master.slug %}">Supprimer</a>
+        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'recipe-update' recipe.recipe_master.slug recipe.pk %}">Mettre à jour</a>
+        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'recipe-delete' recipe.recipe_master.slug recipe.pk%}">Supprimer</a>
     {% endif %}
     <ul class="list-group">
         <li class="list-group-item">Modifié le : {{recipe.last_modifed_on|date:"l j F, Y"}}</li>

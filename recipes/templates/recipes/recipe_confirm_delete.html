@@ -6,12 +6,12 @@
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Supprimer une recette</legend>
         </fieldset>
-        <h2>Sûr de supprimer {{object.name}}</h2>
+        <h2>Sûr de supprimer la version du {{object.last_modifed_on|date:"j/n/y"}} de {{object.recipe_master.name}}</h2>
         <div class="form-group">
             <button class="btn btn-outline-danger" type="submit">
                 Supprimer !
             </button>
-            <a class="btn btn-outline-secondary" href="{% url 'recipe-detail' object.slug %}">
+            <a class="btn btn-outline-secondary" href="{% url 'recipe-detail' object.recipe_master.slug object.pk%}">
                 Oula non, demi tour !
             </a>
         </div>
