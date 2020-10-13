@@ -7,7 +7,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
-from recipes.models import Recipe, QntIngredient
+from recipes.models import RecipeMaster, Recipe, QntIngredient
 
 
 # Index page
@@ -15,8 +15,14 @@ class RecipesList(ListView):
     model = Recipe
     context_object_name = "recipe_list"
     template_name = "recipes/all_recipes.html"
-    ordering = ["-created_on"]
     paginate_by = 1
+
+    def get_queryset(self):
+        allmaster = RecipeMaster.objects.all()
+        return [
+            Recipe.objects.filter(recipe_master=x).latest("last_modifed_on")
+            for x in allmaster
+        ]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -27,17 +33,22 @@ class RecipesList(ListView):
 class RecipeDetail(DetailView):
     model = Recipe
     context_object_name = "recipe"
-    query_pk_and_slug = True
     template_name = "recipes/one_recipe.html"
 
+    def get_queryset(self):
+        return Recipe.objects.filter(
+            pk=self.kwargs["pk"], recipe_master__slug=self.kwargs["slugmaster"]
+        )
+
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the ingredients and quantity
         context["ingredients"] = QntIngredient.objects.filter(
             recipe=self.get_object().pk
         )
-        context["page_title"] = "Recette - " + self.get_object().name
+        context["page_title"] = self.get_object().recipe_master.name
+        context["other_versions"] = Recipe.objects.filter(
+            recipe_master__slug=self.kwargs["slugmaster"]
+        ).order_by("last_modifed_on")
         return context
 
 
@@ -48,7 +59,7 @@ class RecipeCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["page_title"] = "Créer une recette"
@@ -68,7 +79,7 @@ class RecipeUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         if self.request.user == recipe.author:
             return True
         return False
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["page_title"] = "Mettre à jour une recette"
@@ -84,6 +95,7 @@ class RecipeDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == recipe.author:
             return True
         return False
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["page_title"] = "Supprimer une recette"

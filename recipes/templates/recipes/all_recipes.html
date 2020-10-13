@@ -2,13 +2,13 @@
 {% block content %}
     <h1>Toutes les recettes</h1>
     {% for recipe in recipe_list %}
-        <h2><a href="{% url 'recipe-detail' recipe.slug%}">{{ recipe.name }}</a></h2>
+        <h3><a href="{% url 'recipe-detail' recipe.recipe_master.slug recipe.pk%}">{{ recipe.recipe_master.name }}</a></h3>
     {% endfor %}
 
     {% if is_paginated %}
         {% if page_obj.has_previous %}
             <a class="btn btn-outline-info mb-4" href="?page=1"><<</a> 
-            <a class="btn btn-outline-info mb-4" href="?page={{page.obj.previous_page_number}}"><</a> 
+            <a class="btn btn-outline-info mb-4" href="?page={{page_obj.previous_page_number}}"><</a> 
         {% endif %}
         {% for num in page_obj.paginator.page_range %}
             {% if page_obj.number == num %}

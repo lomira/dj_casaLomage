@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>{{ recipe.name }}</h1>
-    {% if recipe.author == user %}
-        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'recipe-update' recipe.slug %}">Mettre à jour</a>
-        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'recipe-delete' recipe.slug %}">Supprimer</a>
+    <h1>{{ recipe.recipe_master.name }}
+    <small class="small text-muted">Créée {{recipe.created_on|date:"l j F, Y"}}, par {{ recipe.recipe_master.author }}</small></h1>
+    {% if recipe.recipe_master.author == user %}
+        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'recipe-update' recipe.recipe_master.slug %}">Mettre à jour</a>
+        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'recipe-delete' recipe.recipe_master.slug %}">Supprimer</a>
     {% endif %}
     <ul class="list-group">
-        <li class="list-group-item">Créé le : {{recipe.created_on|date:"l j F, Y"}}</li>
         <li class="list-group-item">Modifié le : {{recipe.last_modifed_on|date:"l j F, Y"}}</li>
-        <li class="list-group-item">Autheur : {{ recipe.author }}</li>
         <li class="list-group-item">Préparation : {{ recipe.prep_time }} minute{{recipe.prep_time|pluralize}}</li>
         <li class="list-group-item">Matériel{{recipe.material.all|pluralize}} : 
             <ul class="list-group">
@@ -27,4 +26,13 @@
         <li class="list-group-item">Portions : {{ recipe.nb_servings }}</li>
         <li class="list-group-item">Instructions: {{recipe.instruction}}</li>
     </ul>
+    {% if other_versions.count > 1 %}
+        {% for vers in other_versions %}
+            {% if vers == recipe %}
+                <a class="btn btn-info mb-4" href="{% url 'recipe-detail' vers.recipe_master.slug vers.pk%}">{{vers.last_modifed_on|date:"j/n/y"}}</a> 
+            {% else %}
+                <a class="btn btn-outline-info mb-4" href="{% url 'recipe-detail' vers.recipe_master.slug vers.pk%}">{{vers.last_modifed_on|date:"j/n/y"}}</a>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 {% endblock content %}
