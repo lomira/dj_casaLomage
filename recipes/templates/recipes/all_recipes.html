@@ -18,8 +18,8 @@
             {% endif %}
         {% endfor %}
         {% if page_obj.has_next %}
-            <a class="btn btn-outline-info mb-4" href="?page={{page.obj.next_page_number}}">></a> 
-            <a class="btn btn-outline-info mb-4" href="?page={{page.obj.paginator.num_pages}}">>></a> 
+            <a class="btn btn-outline-info mb-4" href="?page={{page_obj.next_page_number}}">></a> 
+            <a class="btn btn-outline-info mb-4" href="?page={{page_obj.paginator.num_pages}}">>></a> 
         {% endif %}
     {% endif %}
 {% endblock content %}
