@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-
+from django.urls import reverse
 from autoslug import AutoSlugField
 
 class Ingredient(models.Model):
@@ -33,6 +33,9 @@ class Recipe(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("recipe-detail", kwargs={"slug": self.slug})
+    
 
 
 

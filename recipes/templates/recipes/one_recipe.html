@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>{{ recipe.name }}</h1>
+    {% if recipe.author == user %}
+        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'recipe-update' recipe.slug %}">Mettre à jour</a>
+        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'recipe-delete' recipe.slug %}">Supprimer</a>
+    {% endif %}
     <ul class="list-group">
         <li class="list-group-item">Créé le : {{recipe.created_on|date:"l j F, Y"}}</li>
         <li class="list-group-item">Modifié le : {{recipe.last_modifed_on|date:"l j F, Y"}}</li>
