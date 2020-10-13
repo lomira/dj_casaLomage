@@ -86,7 +86,7 @@ class RecipeDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         context["page_title"] = "Supprimer une recette"
         return context
 
-
+#TODO : Implémenter ma propre view pour que crée d'un coup, un master, une recette et les ingrédients 
 class RecipeCreate(LoginRequiredMixin, CreateView):
     model = Recipe
     fields = ["pic", "prep_time", "material", "nb_servings", "instruction"]
