@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,13 +10,17 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
-
-    <title>Hello, world!</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+    {% if title %}
+    <title>Django - {{ title }}</title>
+    {% else %}
+    <title>Django - Empty</title>
+    {% endif %}
 </head>
 
 <body>
     <header class="site-header">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
             <div class="container">
                 <a class="navbar-brand mr-4" href="{% url 'recipe-home' %}">CasaLomage</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
@@ -41,11 +46,20 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        {% if messages %}{% for message in messages %}
-        <div class="alert alert-{{message.tags}}">{{message}}</div>
-        {% endfor %}{% endif %} {% block content %}{% endblock %}
-    </div>
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </main>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
