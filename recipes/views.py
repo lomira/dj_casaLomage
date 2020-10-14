@@ -138,14 +138,8 @@ def create_master_recipe(request):
             qnt = qntingredient_form.cleaned_data["qnt"]
             ingredient = qntingredient_form.cleaned_data["ingredient"]
             # qntingredient is used to keep track of all ingredients
-            if request.POST.get("listqntingr"):
-                print("post _______", request.POST)
-                current = request.POST.getlist("listqntingr")
-                print("current _______", current)
-                to_add = [f"{qnt} x {ingredient}"]
-                print("to add _______", to_add)
-                listqntingr = current + to_add
-                print("final _______", listqntingr)
+            if current := request.POST.getlist("listqntingr"):
+                listqntingr = current + [f"{qnt} x {ingredient}"]
             else:
                 listqntingr = [f"{qnt} x {ingredient}"]
             qntingredient_form = NewQntIngredientForm()
