@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+    <form method="post">
+        {% csrf_token %}
+        {{ master_form |crispy }}
+        <div class="form-group">
+            <fieldset>
+                <legend>List ingredients :</legend>
+                {% for el in listqntingr %}
+                <div class="form-group">
+                    <input type="checkbox" id="{{el}}" name="listqntingr" value="{{el}}" checked>
+                    <label for="{{el}}">{{el}}</label>
+                </div>
+                {% endfor %}
+            </fieldset>
+
+
+            {{ qntingredient_form|crispy}}
+            <div class="form-group">
+                <button class="btn btn-outline-info" name="btn_add_qnt_ingredient" type="submit">
+                    Ajouter
+                </button>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-outline-info" name="master" type="submit">
+                    Envoyer en cuisine !
+                </button>
+            </div>
+
+
+
+            {{ material_form |crispy }}
+            <button class="btn btn-outline-info" name="btn_material" type="submit">
+                Ajouter materiel
+            </button>
+
+            {{ ingredient_form |crispy }}
+            <button class="btn btn-outline-info" name="btn_ingredient" type="submit">
+                Ajouter ingredient
+            </button>
+    </form>
+
+</div>
+{% endblock content %}
