@@ -145,7 +145,10 @@ def create_master_recipe(request):
             qntingredient_form = NewQntIngredientForm()
 
         # check whether it's valid:
-        if qntingredient_form.is_valid() and "master" in request.POST:
+        if master_form.is_valid() and "master" in request.POST:
+            # Unpack and check the Qnt ingredient as it is not in the master_form
+            print(request.POST.getlist("listqntingr"))
+            
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
