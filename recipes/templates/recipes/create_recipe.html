@@ -4,7 +4,11 @@
 <div class="content-section">
     <form method="post">
         {% csrf_token %}
+
+
         {{ master_form |crispy }}
+
+
         <div class="form-group">
             <fieldset>
                 <legend>List ingredients :</legend>
@@ -29,17 +33,22 @@
                 </button>
             </div>
 
+            {% comment %} Ajouter un Materiel {% endcomment %}
+            <div class="form-inline">
+                {{ material_form.material.errors }}
+                <label for="{{ material_form.material.id_for_label }}">Ajouter Materiel :</label>
+                {{ material_form.material }}
+                <button class="btn btn-outline-info" name="btn_material" type="submit">+</button>
+            </div>
 
+            {% comment %} Ajouter un ingredient {% endcomment %}
+            <div class="form-inline">
+                {{ ingredient_form.ingredientadd.errors }}
+                <label for="{{ ingredient_form.ingredientadd.id_for_label }}">Ajouter Ingrédient :</label>
+                {{ ingredient_form.ingredientadd }}
+                <button class="btn btn-outline-info" name="btn_ingredient" type="submit">+</button>
+            </div>
 
-            {{ material_form |crispy }}
-            <button class="btn btn-outline-info" name="btn_material" type="submit">
-                Ajouter materiel
-            </button>
-
-            {{ ingredient_form |crispy }}
-            <button class="btn btn-outline-info" name="btn_ingredient" type="submit">
-                Ajouter ingredient
-            </button>
     </form>
 
 </div>

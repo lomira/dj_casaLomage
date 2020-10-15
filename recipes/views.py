@@ -117,20 +117,24 @@ def create_master_recipe(request):
         material_form = NewMaterialForm(request.POST)
         qntingredient_form = NewQntIngredientForm(request.POST)
         ingredient_form = NewIngredientForm(request.POST)
-        # print(request.POST)
+        listqntingr = request.POST.getlist("listqntingr")
+
 
         # 1st case : adding material
         if material_form.is_valid() and "btn_material" in request.POST:
             obj = material_form.cleaned_data["material"]
-            obj = Material.objects.create(material=obj)
-            obj.save()
+            if not Material.objects.filter(material=obj).exists:
+                obj = Material.objects.create(material=obj)
+                obj.save()
+            
             material_form = NewMaterialForm()  # Empty form no redirect
 
         # 2nd case : adding ingredient
         if ingredient_form.is_valid() and "btn_ingredient" in request.POST:
             obj = ingredient_form.cleaned_data["ingredientadd"]
-            obj = Ingredient.objects.create(ingredient=obj)
-            obj.save()
+            if not Ingredient.objects.filter(ingredient=obj).exists:
+                obj = Ingredient.objects.create(ingredient=obj)
+                obj.save()
             ingredient_form = NewIngredientForm()  # Empty form no redirect
 
         # 3rd case: addition combo ingredient elements
@@ -138,8 +142,8 @@ def create_master_recipe(request):
             qnt = qntingredient_form.cleaned_data["qnt"]
             ingredient = qntingredient_form.cleaned_data["ingredient"]
             # qntingredient is used to keep track of all ingredients
-            if current := request.POST.getlist("listqntingr"):
-                listqntingr = current + [f"{qnt} x {ingredient}"]
+            if listqntingr:
+                listqntingr = listqntingr + [f"{qnt} x {ingredient}"]
             else:
                 listqntingr = [f"{qnt} x {ingredient}"]
             qntingredient_form = NewQntIngredientForm()
@@ -147,12 +151,13 @@ def create_master_recipe(request):
         # check whether it's valid:
         if master_form.is_valid() and "master" in request.POST:
             # Unpack and check the Qnt ingredient as it is not in the master_form
-            print(request.POST.getlist("listqntingr"))
+            listqntingr = request.POST.getlist("listqntingr")
+            print(listqntingr)
             
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            return HttpResponseRedirect("/")
+            #return HttpResponseRedirect("/")
 
     # if a GET (or any other method) we'll create a blank form
     else:

@@ -6,14 +6,14 @@ from autoslug import AutoSlugField
 
 
 class Ingredient(models.Model):
-    ingredient = models.CharField(max_length=25)
+    ingredient = models.CharField(max_length=25, unique=True)
 
     def __str__(self):
         return self.ingredient
 
 
 class Material(models.Model):
-    material = models.CharField(max_length=25)
+    material = models.CharField(max_length=25, unique=True)
 
     def __str__(self):
         return self.material
